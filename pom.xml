@@ -6,7 +6,16 @@
 
     <groupId>com.github.mahui53541.kedacomAssessment</groupId>
     <artifactId>kedacomAssessment</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>web</module>
+        <module>order</module>
+        <module>user</module>
+        <module>core</module>
+        <module>goods</module>
+        <module>secure</module>
+    </modules>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
