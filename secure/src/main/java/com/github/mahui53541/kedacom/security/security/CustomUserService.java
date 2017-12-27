@@ -1,4 +1,4 @@
-package com.github.mahui53541.kedacom.web.security;
+package com.github.mahui53541.kedacom.security.security;
 
 
 import org.springframework.security.core.userdetails.UserDetails;

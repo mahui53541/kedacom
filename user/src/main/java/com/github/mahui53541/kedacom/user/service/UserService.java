@@ -1,5 +1,8 @@
 package com.github.mahui53541.kedacom.user.service;
 
+import com.github.mahui53541.kedacom.user.dao.UserDao;
+import com.github.mahui53541.kedacom.user.domain.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -10,4 +13,14 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserService {
+    @Autowired
+    private UserDao userDao;
+    /**
+     * 根据手机号获取用户
+     * @param phone
+     * @return
+     */
+    public User findByPhone(String phone){
+        return userDao.findByPhone(phone);
+    }
 }

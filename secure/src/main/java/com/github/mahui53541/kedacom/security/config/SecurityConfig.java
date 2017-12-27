@@ -1,4 +1,4 @@
-package com.github.mahui53541.kedacom.web.config;
+package com.github.mahui53541.kedacom.security.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,9 +16,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        //static resource
         httpSecurity.authorizeRequests()
-                .antMatchers("/css/**", "/js/**", "/images/**", "/resources/**").permitAll();
-
+                .antMatchers("/css/**", "/js/**", "/images/**", "/resources/**").permitAll()
+                .anyRequest().permitAll()
+                .and()
+                .formLogin().loginPage("/login").failureUrl("/login?error").permitAll()
+                .and()
+                .logout().permitAll();
     }
 }

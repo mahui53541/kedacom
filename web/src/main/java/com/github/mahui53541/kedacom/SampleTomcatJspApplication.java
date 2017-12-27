@@ -6,6 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.annotation.PostConstruct;
@@ -18,6 +19,7 @@ import javax.annotation.PostConstruct;
  */
 @SpringBootApplication
 @EnableTransactionManagement
+@EnableDiscoveryClient
 public class SampleTomcatJspApplication extends SpringBootServletInitializer{
 
     private static final Logger logger = LoggerFactory
