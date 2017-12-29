@@ -18,6 +18,7 @@
         <module>eureka-client</module>
         <module>eureka-service</module>
         <module>eureka-feign</module>
+        <module>apigate-way</module>
     </modules>
 
     <parent>
