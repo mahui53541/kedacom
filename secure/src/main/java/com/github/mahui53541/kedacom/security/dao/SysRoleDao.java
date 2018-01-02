@@ -21,6 +21,6 @@ public interface SysRoleDao extends JpaRepository<SysRole,Long> {
      * @param userId
      * @return
      */
-    @Query(value = "select r from sys_role r left join user_role u on u.role_id=r.id where u.user_id=:userId",nativeQuery = true)
+    @Query(value = "select r.* from sys_role r left join user_role u on u.role_id=r.id where u.user_id=:userId",nativeQuery = true)
     public List<SysRole> findByUserId(@Param("userId") Long userId);
 }

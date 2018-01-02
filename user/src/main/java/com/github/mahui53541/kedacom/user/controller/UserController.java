@@ -1,14 +1,14 @@
 package com.github.mahui53541.kedacom.user.controller;
 
+import com.github.mahui53541.kedacom.core.vo.ReturnMessageVO;
 import com.github.mahui53541.kedacom.user.domain.User;
 import com.github.mahui53541.kedacom.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 import java.util.Map;
@@ -30,11 +30,23 @@ public class UserController {
         model.put("message", "sss");
         return "welcome";
     }
-    @GetMapping("/show")
-    @ResponseBody
-    public User show(){
-        User user=userService.findByPhone("18361228129");
-        return user;
+
+    /**
+     * 注册页面
+     * @return
+     */
+    @GetMapping("/register")
+    public String register(){
+        return "user/register";
     }
 
+    /**
+     * 注册页面
+     * @return
+     */
+    @PostMapping("/register")
+    @ResponseBody
+    public ReturnMessageVO doRegister(User user){
+        return userService.register(user);
+    }
 }

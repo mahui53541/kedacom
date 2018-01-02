@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 /**
  * @description:
  * @author: MaHui
- * @created: 2017/12/28 13:14
+ * @created: 2018/1/2 17:47
  * @version:1.0.0
  */
 @FeignClient("COMPUTE-SERVICE")
-public interface ComputeClient {
-    @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public String show();
+public interface BaseClient {
+    @RequestMapping(value = "/js/base.js", method = RequestMethod.GET)
+    String getStatic();
 }
