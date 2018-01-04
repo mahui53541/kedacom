@@ -21,8 +21,17 @@ public class BaseController {
      * 返回静态文件
      * @return
      */
-    @RequestMapping(value = "/js/**", method = RequestMethod.GET)
+    @RequestMapping(value = "/js/base.js", method = RequestMethod.GET)
     public String getStatic(){
-        return baseClient.getStatic();
+        return baseClient.getStatic1();
     }
+    @RequestMapping(value = "/js/user/login.js", method = RequestMethod.GET)
+    public String getStatic2(){
+        return baseClient.getStatic2();
+    }
+    @RequestMapping(value = "/js/user/register.js", method = RequestMethod.GET)
+    public String getStatic3(){
+        return baseClient.getStatic3();
+    }
+
 }

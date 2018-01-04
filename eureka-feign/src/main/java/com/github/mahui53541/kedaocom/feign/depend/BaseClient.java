@@ -13,5 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @FeignClient("COMPUTE-SERVICE")
 public interface BaseClient {
     @RequestMapping(value = "/js/base.js", method = RequestMethod.GET)
-    String getStatic();
+    String getStatic1();
+    @RequestMapping(value = "/js/user/login.js", method = RequestMethod.GET)
+    String getStatic2();
+    @RequestMapping(value = "/js/user/register.js", method = RequestMethod.GET)
+    String getStatic3();
 }
