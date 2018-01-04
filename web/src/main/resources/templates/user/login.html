@@ -13,7 +13,14 @@
     <link th:href="@{https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css}" rel="stylesheet"/>
     <link th:href="@{https://cdn.bootcss.com/limonte-sweetalert2/7.1.2/sweetalert2.min.css}" rel="stylesheet"/>
     <title>登录</title>
-    <script>
+    <script th:inline="javascript">
+        //<![CDATA[
+        $(function () {
+            if([[${session.SPRING_SECURITY_CONTEXT}]]!=null){
+                window.location.href="/";
+            }
+        })
+        //]]>
     </script>
 </head>
 <body>

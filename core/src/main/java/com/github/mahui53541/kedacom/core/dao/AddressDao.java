@@ -1,6 +1,6 @@
-package com.github.mahui53541.kedacom.web.dao;
+package com.github.mahui53541.kedacom.core.dao;
 
-import com.github.mahui53541.kedacom.web.domain.Address;
+import com.github.mahui53541.kedacom.core.domain.Address;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

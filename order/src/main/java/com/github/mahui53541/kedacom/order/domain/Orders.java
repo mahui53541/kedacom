@@ -18,9 +18,8 @@ import java.util.Date;
 @Entity
 @Table(name="orders")
 public class Orders extends BaseModel {
-
-    @Column(name="user_id")
-    private Long userId;//用户ID
+    @Column(name="user_phone",length = 11)
+    private String userPhone;//用户ID
     @Column(name="address",length = 256)
     private String address;//收货地址
     @Column(name="order_date")
@@ -34,12 +33,12 @@ public class Orders extends BaseModel {
     @Column(name="order_state")
     private OrderState orderState;//订单状态
 
-    public Long getUserId() {
-        return userId;
+    public String getUserPhone() {
+        return userPhone;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUserPhone(String userPhone) {
+        this.userPhone = userPhone;
     }
 
     public String getAddress() {

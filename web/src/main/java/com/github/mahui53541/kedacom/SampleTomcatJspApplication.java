@@ -18,7 +18,6 @@ import javax.annotation.PostConstruct;
  * @version:1.0.0
  */
 @SpringBootApplication
-@EnableTransactionManagement
 @EnableDiscoveryClient
 public class SampleTomcatJspApplication extends SpringBootServletInitializer{
 

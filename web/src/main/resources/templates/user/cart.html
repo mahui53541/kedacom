@@ -7,10 +7,31 @@
     <script th:src="@{https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js}"></script>
     <script th:src="@{https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
     <script th:src="@{https://cdn.bootcss.com/limonte-sweetalert2/7.1.2/sweetalert2.all.min.js}"></script>
+    <script th:src="@{/js/base.js}"></script>
     <link th:href="@{https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet"/>
     <link th:href="@{https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css}" rel="stylesheet"/>
     <link th:href="@{https://cdn.bootcss.com/limonte-sweetalert2/7.1.2/sweetalert2.min.css}" rel="stylesheet"/>
-    <title>首页</title>
+    <title>购物车</title>
+    <script th:inline="javascript">
+        //<![CDATA[
+        var tale = new $.tale();
+        function checkout() {
+            tale.post({
+                url: '/cart/checkout',
+                success: function (result) {
+                    if (result && result.code==1) {
+                        tale.alertOk(result.msg||"已经成功下单");
+                        window.location.reload();
+                    } else {
+                        tale.alertError(result.msg || '下单失败');
+                    }
+                }
+            });
+            return false;
+        }
+        //]]>
+
+    </script>
 </head>
 <body>
 <nav class="navbar navbar-default">
@@ -23,14 +44,14 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Shop</a>
+            <a class="navbar-brand" href="#">Shop</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li th:each="goodsType,goodsTypeStat : ${goodsTypes}" th:class="${goodsType.id}==${typeId}? 'active':''">
-                    <a th:href="${'/goods/typeId/'+goodsType.id+'/page/1'}" th:text="${goodsType.typeName}"></a>
+                <li>
+                    <a th:href="${'/goods/page/1'}">首页</a>
                 </li>
             </ul>
             <ul th:if="${session.SPRING_SECURITY_CONTEXT}==null" class="nav navbar-nav navbar-right">
@@ -53,35 +74,32 @@
     </div><!-- /.container-fluid -->
 </nav>
 <!--商品展示-->
-<div th:if="${goodsList.numberOfElements} == 0" class="container-fluid">
-    <p style="text-align: center">暂无数据</p>
-</div>
-<div th:if="${goodsList.numberOfElements} != 0" class="container-fluid">
-    <div class="row">
-        <div class="col-md-3" th:each="goods:${goodsList.content}">
-            <div style="width: 200px">
-                <a th:href="${'/goods/'+goods.id}"><img th:src="${goods.imageUrl}"  class="img-responsive img-thumbnail"/></a>
-            </div>
-            <div>
-                <a th:href="${'/goods/'+goods.id}" th:text="${goods.name}"></a>
-            </div>
-            <div>
-                <label th:text="${'销量：'+goods.sales}"></label>
-                <label th:text="${'￥'+goods.price}" style="color: orange"></label>
+<div class="container-fluid">
+        <table class="container-fluid" align="center">
+            <thead class="row" border="1">
+                <tr class="row">
+                    <th class="col-md-2">商品</th>
+                    <th class="col-md-2">商品名称</th>
+                    <th class="col-md-2">商品价格</th>
+                    <th class="col-md-2">数量</th>
+                </tr>
+            </thead>
+            <tbody class="row" >
+                <tr class="row" th:each="cart:${cartList}">
+                    <td style="padding: 10px" class="col-md-2"><img style="width: 150px;" th:src="${cart.imageUrl}" class="img-responsive" alt="Responsive image"/></td>
+                    <td class="col-md-2" th:text="${cart.name}"></td>
+                    <td class="col-md-2" th:text="${cart.goodsPrice}"></td>
+                    <td class="col-md-2" th:text="${cart.orderCount}"></td>
+                </tr>
+            </tbody>
+        </table>
+        <hr/>
+
+        <div class="row">
+            <div class="col-md-2 col-md-offset-8">
+                <button class="btn btn-success" type="button" onclick="checkout()">结算</button>
             </div>
         </div>
-    </div>
 </div>
-<div class="container-fluid" style="padding: 10px auto">
-    <nav style="text-align: center;" aria-label="Page navigation">
-        <ul class="pagination">
-            <li><a th:href="${typeId}=='all'?'/goods/page/1':${'/goods/typeId/'+typeId+'/page/1'}">1</a></li>
-            <li><a th:href="${typeId}=='all'?'/goods/page/2':${'/goods/typeId/'+typeId+'/page/2'}">2</a></li>
-            <li><a th:href="${typeId}=='all'?'/goods/page/3':${'/goods/typeId/'+typeId+'/page/3'}">3</a></li>
-            <li><a th:href="${typeId}=='all'?'/goods/page/4':${'/goods/typeId/'+typeId+'/page/4'}">4</a></li>
-        </ul>
-    </nav>
-</div>
-
 </body>
 </html>

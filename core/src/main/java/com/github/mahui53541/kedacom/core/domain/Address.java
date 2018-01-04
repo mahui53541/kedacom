@@ -1,4 +1,4 @@
-package com.github.mahui53541.kedacom.web.domain;
+package com.github.mahui53541.kedacom.core.domain;
 
 import com.github.mahui53541.kedacom.core.domain.base.BaseModel;
 

@@ -143,8 +143,9 @@ $.tale.prototype.post = function (options) {
             self.hideLoading();
             options.success && options.success(result);
         },
-        error: function () {
-            //
+        error: function (result) {
+            self.hideLoading();
+            window.location.href="/login"
         }
     });
 };
@@ -165,3 +166,19 @@ $.tale.prototype.showLoading = function () {
 $.tale.prototype.hideLoading = function () {
     $('#tale-loading') && $('#tale-loading').hide();
 };
+
+/**
+ * 获取参数
+ * @param variable
+ * @returns {*}
+ */
+$.tale.prototype.getQueryVariable=function getQueryVariable(variable)
+{
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i=0;i<vars.length;i++) {
+        var pair = vars[i].split("=");
+        if(pair[0] == variable){return pair[1];}
+    }
+    return(false);
+}
