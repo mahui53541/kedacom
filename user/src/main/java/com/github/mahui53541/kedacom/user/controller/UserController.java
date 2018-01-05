@@ -1,15 +1,21 @@
 package com.github.mahui53541.kedacom.user.controller;
 
+import com.fasterxml.jackson.databind.util.BeanUtil;
+import com.github.mahui53541.kedacom.core.util.BeanMapper;
+import com.github.mahui53541.kedacom.core.util.RequestMapUtil;
 import com.github.mahui53541.kedacom.core.vo.ReturnMessageVO;
 import com.github.mahui53541.kedacom.user.domain.User;
 import com.github.mahui53541.kedacom.user.service.UserService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.Map;
 
@@ -24,13 +30,6 @@ import java.util.Map;
 public class UserController {
     @Autowired
     private UserService userService;
-    @GetMapping("")
-    public String welcome(Map<String, Object> model) {
-        model.put("time", new Date());
-        model.put("message", "sss");
-        return "welcome";
-    }
-
     /**
      * 注册页面
      * @return
@@ -46,7 +45,9 @@ public class UserController {
      */
     @PostMapping("/register")
     @ResponseBody
-    public ReturnMessageVO doRegister(User user){
+    public ReturnMessageVO doRegister(@RequestBody User user){
+        //User user=new User();
+        //BeanMapper.copy(RequestMapUtil.getParamsMap(request),user);
         return userService.register(user);
     }
 }

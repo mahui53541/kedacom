@@ -2,8 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="_csrf" th:content="${_csrf.token}"/>
-    <meta name="_csrf_header"  th:content="${_csrf.headerName}"/>
+    <!--<meta name="_csrf" th:content="${_csrf.token}"/>-->
+    <!--<meta name="_csrf_header"  th:content="${_csrf.headerName}"/>-->
     <script th:src="@{https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js}"></script>
     <script th:src="@{https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
     <script th:src="@{https://cdn.bootcss.com/limonte-sweetalert2/7.1.2/sweetalert2.all.min.js}"></script>
@@ -54,9 +54,9 @@
                            style="box-shadow: 0px 0px 4px #868282;" th:href="@{/user/register}" role="button">注&nbsp;册</a>
                     </div>
                 </div>
-                <input type="hidden"
-                       th:name="${_csrf.parameterName}"
-                       th:value="${_csrf.token}"/>
+                <!--<input type="hidden"-->
+                       <!--th:name="${_csrf.parameterName}"-->
+                       <!--th:value="${_csrf.token}"/>-->
             </form>
         </div>
     </div>

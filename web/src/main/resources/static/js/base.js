@@ -136,9 +136,10 @@ $.tale.prototype.post = function (options) {
         data: options.data || {},
         async: options.async || false,
         dataType: 'json',
-        beforeSend : function(xhr) {
-            xhr.setRequestHeader(header, token);
-        },
+        contentType : 'application/json',
+        // beforeSend : function(xhr) {
+        //     xhr.setRequestHeader(header, token);
+        // },
         success: function (result) {
             self.hideLoading();
             options.success && options.success(result);
