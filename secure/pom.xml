@@ -20,6 +20,11 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
         <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.0</version>
+        </dependency>
+        <dependency>
             <groupId>com.github.mahui53541.kedacomAssessment</groupId>
             <artifactId>user</artifactId>
             <version>1.0-SNAPSHOT</version>
