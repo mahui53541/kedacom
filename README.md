@@ -20,13 +20,19 @@
 
 ## 达成目标:
 
-  - 1.使用Spring Boot, Spring JPA实现底层服务的CRUD
+  - 1.使用`Spring Boot`, `Spring JPA`实现底层服务的CRUD
   - 2.单元测试，API测试
-  - 3.符合RESTFUL API规范
-  - 4.安全验证（Spring Security）
-  - 5.实现服务网关组件(zuul)
+  - 3.符合`RESTFUL API`规范
+  - 4.安全验证（`Spring Security`），服务器端保存用户会话session
+  - 5.实现服务网关组件(`zuul`)
   - 6.实现服务的高可用
+## V1.0 版本说明
+
+* 前后端未分离，页面使用[thymeleaf](http://www.thymeleaf.org/) 模板引擎（不推荐JSP,就连Spring Boot 官方都嫌弃了）；
+* 采用有状态的会话，用户登陆后，用户信息保存在服务器端；
+* 使用实现服务网关组件(`zuul`)
 
 ## 项目启动
 
-首先启动web项目（项目主入口），项目启动在8090端口;接着启动服务网关组件gateway,端口号8080，访问http://localhost:8080/shop即可演示项目
+首先启动web项目（项目主入口），项目启动在8090端口;接着启动服务网关组件gateway,项目启动在8080端口，访问`http://localhost:8080/shop`
+即可演示项目

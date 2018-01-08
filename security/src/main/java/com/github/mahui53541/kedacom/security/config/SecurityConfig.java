@@ -46,9 +46,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin().loginPage("/login").failureUrl("/login?error").defaultSuccessUrl("/").permitAll()
                 .and().
-                logout().logoutUrl("/logout").logoutSuccessUrl("/login").permitAll()
+                logout().logoutUrl("/logout").logoutSuccessUrl("/").permitAll()
                 .and()
                 .logout().permitAll()
+                //允许 ajax 跨域（不安全）
                 .and().csrf().disable();
     }
 }
