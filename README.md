@@ -32,6 +32,9 @@
 * 采用有状态的会话，用户登陆后，用户信息保存在服务器端；
 * 使用实现服务网关组件(`zuul`)
 
+## 详细配置
+- [整合Spring Security](SpringSecurity.md)
+- [整合服务网关Zuul](Zuul.md)
 ## 项目启动
 
 首先启动web项目（项目主入口），项目启动在8090端口;接着启动服务网关组件gateway,项目启动在8080端口，访问`http://localhost:8080/shop`即可演示项目

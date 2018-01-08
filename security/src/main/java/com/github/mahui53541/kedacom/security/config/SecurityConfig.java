@@ -37,19 +37,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeRequests()
-                .antMatchers("/css/**", "/js/**", "/images/**", "/resources/**").permitAll()
-                .antMatchers("/").permitAll()
-                .antMatchers("/goods/**").permitAll()
-                .antMatchers("/user/register").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin().loginPage("/login").failureUrl("/login?error").defaultSuccessUrl("/").permitAll()
-                .and().
-                logout().logoutUrl("/logout").logoutSuccessUrl("/").permitAll()
-                .and()
-                .logout().permitAll()
+        httpSecurity
+                .authorizeRequests()
+                    .antMatchers("/css/**", "/js/**", "/images/**", "/resources/**").permitAll()
+                    .antMatchers("/").permitAll()
+                    .antMatchers("/goods/**").permitAll()
+                    .antMatchers("/user/register").permitAll()
+                    .anyRequest().authenticated()
+                    .and()
+                .formLogin()
+                    .loginPage("/login")
+                    .failureUrl("/login?error")
+                    .defaultSuccessUrl("/")
+                    .permitAll()
+                    .and()
+                .logout()
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/")
+                    .permitAll()
+                    .and()
                 //允许 ajax 跨域（不安全）
-                .and().csrf().disable();
+                .csrf().disable();
     }
 }
