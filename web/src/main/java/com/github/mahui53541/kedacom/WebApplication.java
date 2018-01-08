@@ -6,9 +6,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
-
 import javax.annotation.PostConstruct;
 
 /**
@@ -18,15 +15,14 @@ import javax.annotation.PostConstruct;
  * @version:1.0.0
  */
 @SpringBootApplication
-@EnableDiscoveryClient
-public class SampleTomcatJspApplication extends SpringBootServletInitializer{
+public class WebApplication extends SpringBootServletInitializer{
 
     private static final Logger logger = LoggerFactory
-            .getLogger(SampleTomcatJspApplication.class);
+            .getLogger(WebApplication.class);
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(SampleTomcatJspApplication.class);
+        return application.sources(WebApplication.class);
     }
 
 
@@ -36,6 +32,6 @@ public class SampleTomcatJspApplication extends SpringBootServletInitializer{
         logger.trace("Sample Trace Message");
     }
     public static void main(String[] args) {
-        SpringApplication.run(SampleTomcatJspApplication.class, args);
+        SpringApplication.run(WebApplication.class, args);
     }
 }

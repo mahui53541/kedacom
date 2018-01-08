@@ -3,43 +3,40 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>kedacomAssessment</artifactId>
-        <groupId>com.github.mahui53541.kedacomAssessment</groupId>
+        <artifactId>kedacom</artifactId>
+        <groupId>com.github.mahui53541.kedacom</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
 
+    <modelVersion>4.0.0</modelVersion>
     <artifactId>web</artifactId>
+    <version>${parent.version}</version>
+
     <dependencies>
         <dependency>
-            <groupId>com.github.mahui53541.kedacomAssessment</groupId>
+            <groupId>com.github.mahui53541.kedacom</groupId>
             <artifactId>core</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${parent.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.github.mahui53541.kedacomAssessment</groupId>
+            <groupId>com.github.mahui53541.kedacom</groupId>
             <artifactId>user</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${parent.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.github.mahui53541.kedacomAssessment</groupId>
+            <groupId>com.github.mahui53541.kedacom</groupId>
             <artifactId>secure</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${parent.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.github.mahui53541.kedacomAssessment</groupId>
+            <groupId>com.github.mahui53541.kedacom</groupId>
             <artifactId>order</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${parent.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.github.mahui53541.kedacomAssessment</groupId>
+            <groupId>com.github.mahui53541.kedacom</groupId>
             <artifactId>goods</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.mahui53541.kedacomAssessment</groupId>
-            <artifactId>eureka-client</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${parent.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

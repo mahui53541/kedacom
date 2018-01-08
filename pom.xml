@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.mahui53541.kedacomAssessment</groupId>
-    <artifactId>kedacomAssessment</artifactId>
+    <groupId>com.github.mahui53541.kedacom</groupId>
+    <artifactId>kedacom</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
@@ -15,9 +15,6 @@
         <module>core</module>
         <module>goods</module>
         <module>secure</module>
-        <module>eureka-client</module>
-        <module>eureka-service</module>
-        <module>eureka-feign</module>
         <module>apigate-way</module>
     </modules>
 
