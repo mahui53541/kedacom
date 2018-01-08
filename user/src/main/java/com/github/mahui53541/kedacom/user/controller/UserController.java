@@ -34,20 +34,9 @@ public class UserController {
      * 注册页面
      * @return
      */
-    @GetMapping("/register")
-    public String register(){
-        return "user/register";
-    }
-
-    /**
-     * 注册页面
-     * @return
-     */
     @PostMapping("/register")
     @ResponseBody
     public ReturnMessageVO doRegister(@RequestBody User user){
-        //User user=new User();
-        //BeanMapper.copy(RequestMapUtil.getParamsMap(request),user);
         return userService.register(user);
     }
 }

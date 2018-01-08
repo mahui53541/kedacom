@@ -4,6 +4,7 @@ import com.github.mahui53541.kedacom.core.vo.ReturnMessageVO;
 import com.github.mahui53541.kedacom.user.domain.ShoppingCart;
 import com.github.mahui53541.kedacom.user.service.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/cart")
+@PreAuthorize("hasRole('USER')")
 public class ShoppingCartController {
     @Autowired
     private ShoppingCartService shoppingCartService;
