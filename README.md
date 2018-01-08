@@ -28,7 +28,7 @@
   - 6.实现服务的高可用
 ## V1.0 版本说明
 
-* 前后端未分离，页面使用[thymeleaf](http://www.thymeleaf.org/) 模板引擎（不推荐JSP,就连Spring Boot 官方都嫌弃了）；
+* 前后端未分离，页面使用[thymeleaf](http://www.thymeleaf.org/) 模板引擎（不推荐JSP,就连Spring Boot 官方都嫌弃了）； 
 * 采用有状态的会话，用户登陆后，用户信息保存在服务器端；
 * 使用实现服务网关组件(`zuul`)
 
