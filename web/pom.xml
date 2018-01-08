@@ -25,7 +25,7 @@
         </dependency>
         <dependency>
             <groupId>com.github.mahui53541.kedacom</groupId>
-            <artifactId>secure</artifactId>
+            <artifactId>security</artifactId>
             <version>${parent.version}</version>
         </dependency>
         <dependency>

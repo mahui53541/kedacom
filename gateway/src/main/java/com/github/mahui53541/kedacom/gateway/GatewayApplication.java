@@ -2,7 +2,7 @@ package com.github.mahui53541.kedacom.gateway;
 
 import com.github.mahui53541.kedacom.gateway.filters.pre.SimpleFilter;
 import org.springframework.boot.SpringApplication;
-import org.springframework.cloud.client.SpringCloudApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Bean;
 
@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Bean;
  * @version:1.0.0
  */
 @EnableZuulProxy
-@SpringCloudApplication
+@SpringBootApplication
 public class GatewayApplication {
 
     public static void main(String[] args) {

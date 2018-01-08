@@ -14,8 +14,8 @@
         <module>user</module>
         <module>core</module>
         <module>goods</module>
-        <module>secure</module>
-        <module>apigate-way</module>
+        <module>security</module>
+        <module>gateway</module>
     </modules>
 
     <parent>
