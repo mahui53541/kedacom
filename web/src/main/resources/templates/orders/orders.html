@@ -12,6 +12,41 @@
     <link th:href="@{https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css}" rel="stylesheet"/>
     <link th:href="@{https://cdn.bootcss.com/limonte-sweetalert2/7.1.2/sweetalert2.min.css}" rel="stylesheet"/>
     <title>订单中心</title>
+    <script th:inline="javascript">
+        //<![CDATA[
+        var tale = new $.tale();
+        $(function () {
+            var user=window.localStorage.getItem("access_user");
+            console.log(user);
+            if(user==null){
+                window.location.href="/login";
+            }else{
+                user=JSON.parse(user)
+                tale.post({
+                    url: '/orders/'+user.username,
+                    type:"GET",
+                    success: function (result) {
+                        if (result && result.code==1) {
+                            $.each(result.data,function (index, orders) {
+                                var row='<tr class="row">'+
+                                    '<td class="col-md-2">'+
+                                        '<a href="/orders/detail?orderId='+orders.id+'">'+orders.id+'</a>'+
+                                    '</td>'+
+                                    '<td class="col-md-2">'+orders.orderDate+'</td>'+
+                                    '<td class="col-md-2">￥'+orders.orderAmount+'</td>'+
+                                    '<td class="col-md-2">'+orders.orderState+'</td>'+
+                                    '<td class="col-md-2">'+orders.sendDate+'</td>'+
+                                    '<td class="col-md-2">'+orders.receiveDate+'</td> </tr>'
+                                $("#tbody").append(row);
+                            })
+                        }
+                    }
+                });
+            }
+
+        })
+        //]]>
+    </script>
 </head>
 <body>
 <nav class="navbar navbar-default">
@@ -34,22 +69,22 @@
                     <a th:href="${'/goods/page/1'}">首页</a>
                 </li>
             </ul>
-            <ul th:if="${session.SPRING_SECURITY_CONTEXT}==null" class="nav navbar-nav navbar-right">
+            <ul id="login" style="display: none;" class="nav navbar-nav navbar-right">
                 <li><a href="/login">登录</a></li>
                 <li><a href="/register">注册</a></li>
             </ul>
-            <ul th:if="${session.SPRING_SECURITY_CONTEXT}!=null" class="nav navbar-nav navbar-right">
+            <ul id="welcome" style="display: none;" class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="#" th:text="'欢迎您：'+${session.SPRING_SECURITY_CONTEXT.authentication.name}"></a>
+                    <a id="var1" href="#"></a>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">我的 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a th:href="${'/cart/'+session.SPRING_SECURITY_CONTEXT.authentication.name}">购物车</a></li>
-                        <li><a th:href="${'/orders/'+session.SPRING_SECURITY_CONTEXT.authentication.name}">订单</a></li>
+                        <li><a id="var2">购物车</a></li>
+                        <li><a id="var3">订单</a></li>
                     </ul>
                 </li>
-                <li><a href="/logout">注销</a></li>
+                <li><a href="#" onclick="logout()">注销</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
@@ -66,17 +101,8 @@
             <th class="col-md-2">签收时间</th>
         </tr>
         </thead>
-        <tbody class="row" >
-        <tr class="row" th:each="orders:${ordersList}">
-            <td class="col-md-2">
-                <a th:href="'/orders/'+${session.SPRING_SECURITY_CONTEXT.authentication.name}+'/'+${orders.id}" th:text="${orders.id}"></a>
-            </td>
-            <td class="col-md-2" th:text="${orders.orderDate}"></td>
-            <td class="col-md-2" th:text="'￥'+${orders.orderAmount}"></td>
-            <td class="col-md-2" th:text="${orders.orderState.getValue()}"></td>
-            <td class="col-md-2" th:text="${orders.sendDate}"></td>
-            <td class="col-md-2" th:text="${orders.getReceiveDate()}"></td>
-        </tr>
+        <tbody class="row" id="tbody">
+
         </tbody>
     </table>
     <hr/>

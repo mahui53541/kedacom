@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.nio.file.AccessDeniedException;
 
 /**
  * @description:全局异常处理
@@ -16,6 +17,11 @@ import javax.servlet.http.HttpServletRequest;
 @ControllerAdvice
 @ResponseBody
 public class GlobalExceptionHandler {
+
+//    @ExceptionHandler(value=AccessDeniedException.class)
+//    public String AccessDeniedExceptionHandler(HttpServletRequest request, AccessDeniedException exception) throws Exception{
+//        return "user/login";
+//    }
     /**
      * 所有异常报错
      * @param request

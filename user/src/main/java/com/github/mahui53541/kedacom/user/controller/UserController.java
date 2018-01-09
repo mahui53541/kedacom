@@ -28,15 +28,5 @@ import java.util.Map;
 @Controller
 @RequestMapping(path="/user")
 public class UserController {
-    @Autowired
-    private UserService userService;
-    /**
-     * 注册页面
-     * @return
-     */
-    @PostMapping("/register")
-    @ResponseBody
-    public ReturnMessageVO doRegister(@RequestBody User user){
-        return userService.register(user);
-    }
+
 }

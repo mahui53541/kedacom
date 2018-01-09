@@ -1,10 +1,13 @@
 package com.github.mahui53541.kedacom.security.config;
 
+import com.github.mahui53541.kedacom.security.jwt.JwtAuthenticationEntryPoint;
 import com.github.mahui53541.kedacom.security.jwt.JwtAuthenticationTokenFilter;
-import com.github.mahui53541.kedacom.security.security.JwtUserDetailsServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -21,14 +24,16 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * @version:1.0.0
  */
 @Configuration
+@EnableGlobalMethodSecurity(prePostEnabled=true)
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     //自定义UserDetailsService实现
-    @Bean
-    public UserDetailsService userDetailsService(){
-        return new JwtUserDetailsServiceImpl();
-    };
+    @Autowired
+    private UserDetailsService userDetailsService;
+
+    @Autowired
+    private JwtAuthenticationEntryPoint unauthorizedHandler;
 
     //过滤器
     @Bean
@@ -46,7 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
                 // 设置UserDetailsService
-                .userDetailsService(userDetailsService())
+                .userDetailsService(userDetailsService)
                 // 使用BCrypt进行密码的hash
                 .passwordEncoder(passwordEncoder());
     }
@@ -55,6 +60,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity
                 // 添加JWT filter
                 .addFilterBefore(authenticationTokenFilterBean(),UsernamePasswordAuthenticationFilter.class)
+                //用于处理用户无权
+                .exceptionHandling()
+                    .authenticationEntryPoint(unauthorizedHandler)
+                    .and()
                 //由于使用的是JWT，不需要csrf,禁用
                 .csrf().disable()
                 //基于token，禁用Session
@@ -64,10 +73,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //允许对静态资源和部分url访问
                 .authorizeRequests()
                     .antMatchers("/css/**", "/js/**", "/images/**", "/resources/**").permitAll()
-                    .antMatchers("/").permitAll()
-                    .antMatchers("/goods/**").permitAll()
-                    .antMatchers("/register").permitAll()
-                    .antMatchers("/login").permitAll()
+                    .antMatchers("/").permitAll()//首页
+                    .antMatchers("/goods/**").permitAll()//商品浏览
+                    .antMatchers(HttpMethod.GET,"/login").permitAll()//登录页面
+                    .antMatchers(HttpMethod.GET,"/register").permitAll()//注册页面
+                    .antMatchers("/auth/**").permitAll()//登陆注册
+                    .antMatchers(HttpMethod.GET,"/cart").permitAll()//购物车页面
+                    .antMatchers(HttpMethod.GET,"/orders").permitAll()//购物车页面
+                    .antMatchers(HttpMethod.GET,"/orders/detail").permitAll()//购物车页面
                     .anyRequest().authenticated()
                     .and()
 //                .formLogin()

@@ -21,13 +21,14 @@
             data.goodsId=goodsId;
             data.orderCount=$('#orderCount').val();
             tale.post({
-                url: '/cart',
+                url: '/cart/add',
                 data: data,
+                contentType:'application/x-www-form-urlencoded; charset=UTF-8',
                 success: function (result) {
                     if (result && result.code==1) {
                         tale.alertOk(result.msg||"已经添加到购物车");
                     } else {
-                        tale.alertError(result.msg || '注册失败');
+                        tale.alertError(result.msg || '添加失败');
                     }
                 }
             });
@@ -57,22 +58,22 @@
                     <a th:href="${'/goods/page/1'}">首页</a>
                 </li>
             </ul>
-            <ul th:if="${session.SPRING_SECURITY_CONTEXT}==null" class="nav navbar-nav navbar-right">
+            <ul id="login" style="display: none;" class="nav navbar-nav navbar-right">
                 <li><a href="/login">登录</a></li>
                 <li><a href="/register">注册</a></li>
             </ul>
-            <ul th:if="${session.SPRING_SECURITY_CONTEXT}!=null" class="nav navbar-nav navbar-right">
+            <ul id="welcome" style="display: none;" class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="#" th:text="'欢迎您：'+${session.SPRING_SECURITY_CONTEXT.authentication.name}"></a>
+                    <a id="var1" href="#"></a>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">我的 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a th:href="${'/cart/'+session.SPRING_SECURITY_CONTEXT.authentication.name}">购物车</a></li>
-                        <li><a th:href="${'/orders/'+session.SPRING_SECURITY_CONTEXT.authentication.name}">订单</a></li>
+                        <li><a id="var2">购物车</a></li>
+                        <li><a id="var3">订单</a></li>
                     </ul>
                 </li>
-                <li><a href="/logout">注销</a></li>
+                <li><a href="#" onclick="logout()">注销</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

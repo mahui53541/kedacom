@@ -6,36 +6,8 @@ $.extend({
     }
 });
 
-var token = $("meta[name='_csrf']").attr("content");
-var header = $("meta[name='_csrf_header']").attr("content");
-
-/**
- * tale alert删除  // todo: 减少耦合度,链式操作替代
- * @param options
- */
-// $.tale.prototype.alert_del = function (options) {
-//     swal({
-//         title: options.title || '警告信息',
-//         text: options.text || "确定删除吗？",
-//         type: 'warning',
-//         showCancelButton: true,
-//         confirmButtonColor: '#3085d6',
-//         cancelButtonColor: '#d33',
-//         confirmButtonText: '确定',
-//         cancelButtonText: '取消'
-//     }).then(function () {
-//         $.post(options.url, options.parame, function (result) {
-//             if (result && result.success) {
-//                 swal('提示信息', '删除成功', 'success');
-//                 setTimeout(function () {
-//                     window.location.reload();
-//                 }, 2000);
-//             } else {
-//                 swal("提示消息", result.msg, 'error');
-//             }
-//         });
-//     }).catch(swal.noop);
-// };
+var token = window.localStorage.getItem("access_token")
+var header="Authorization"
 
 /**
  * 成功弹框
@@ -136,10 +108,10 @@ $.tale.prototype.post = function (options) {
         data: options.data || {},
         async: options.async || false,
         dataType: 'json',
-        contentType : 'application/json',
-        // beforeSend : function(xhr) {
-        //     xhr.setRequestHeader(header, token);
-        // },
+        contentType : options.contentType||'application/json',
+        beforeSend : function(xhr) {
+            xhr.setRequestHeader(header, token);
+        },
         success: function (result) {
             self.hideLoading();
             options.success && options.success(result);
@@ -182,4 +154,23 @@ $.tale.prototype.getQueryVariable=function getQueryVariable(variable)
         if(pair[0] == variable){return pair[1];}
     }
     return(false);
+}
+
+$(function () {
+    var user=JSON.parse(localStorage.getItem("access_user"));
+    if(user!=null){
+        $('#login').remove();
+        $('#var1').text("欢迎你："+user.nickname);
+        $('#var2').attr('href','/cart');
+        $('#var3').attr('href','/orders');
+        $('#welcome').show()
+    }else{
+        $('#welcome').remove();
+        $('#login').show();
+    }
+})
+
+function logout(){
+    window.localStorage.clear();
+    window.location.reload();
 }

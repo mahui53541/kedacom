@@ -4,6 +4,7 @@ import com.github.mahui53541.kedacom.core.vo.ReturnMessageVO;
 import com.github.mahui53541.kedacom.user.domain.ShoppingCart;
 import com.github.mahui53541.kedacom.user.service.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -24,27 +26,33 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/cart")
-@PreAuthorize("hasRole('USER')")
 public class ShoppingCartController {
     @Autowired
     private ShoppingCartService shoppingCartService;
 
-    @PostMapping("")
+    @GetMapping("")
+    public String cartPage(){
+        return "/user/cart";
+    }
+
+    @PreAuthorize("hasRole('USER')")
+    @PostMapping("/add")
     @ResponseBody
     public ReturnMessageVO addCart(ShoppingCart shoppingCart){
         shoppingCartService.addCart(shoppingCart);
         return ReturnMessageVO.success("成功加入购物车");
     }
 
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/{phone}")
-    public String showCart(@PathVariable("phone") String phone,Map<String, Object> model){
+    @ResponseBody
+    public ReturnMessageVO showCart(@PathVariable("phone") String phone){
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal();
         if(userDetails.getUsername().equals(phone)){
-            model.put("cartList",shoppingCartService.findCartList(phone));
-            return "/user/cart";
+            return ReturnMessageVO.success("ok",shoppingCartService.findCartList(phone));
         }else{
-            return "/common/404";
+            throw new AccessDeniedException("用户名不匹配");
         }
     }
 

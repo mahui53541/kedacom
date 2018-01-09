@@ -6,7 +6,7 @@ function checkForm() {
     data['password']=$('#inputPassword').val();
     data['phone']=$('#phone').val()
     tale.post({
-        url: '/user/register',
+        url: '/auth/register',
         data: JSON.stringify(data),
         success: function (result) {
             if (result && result.code==1) {

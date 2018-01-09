@@ -7,6 +7,8 @@ import com.github.mahui53541.kedacom.order.service.OrdersDetailService;
 import com.github.mahui53541.kedacom.order.service.OrdersService;
 import com.github.mahui53541.kedacom.order.vo.OrdersDetailVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -35,20 +38,36 @@ public class OrdersController {
     private OrdersDetailService ordersDetailService;
 
     /**
+     * 订单页面
+     * @return
+     */
+    @GetMapping("")
+    public String ordersPage(){
+        return "orders/orders";
+    }
+    /**
+     * 订单页面
+     * @return
+     */
+    @GetMapping("/detail")
+    public String ordersDetailPage(){
+        return "orders/detail";
+    }
+    /**
      * 获取订单列表
      * @param phone
-     * @param model
      * @return
      */
     @GetMapping("/{phone}")
-    public String orders(@PathVariable("phone") String phone, Map<String,Object> model){
+    @PreAuthorize("hasRole('USER')")
+    @ResponseBody
+    public ReturnMessageVO orders(@PathVariable("phone") String phone){
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal();
         if(userDetails.getUsername().equals(phone)){
-            model.put("ordersList",ordersService.findByUserPhone(phone));
-            return "orders/orders";
+            return ReturnMessageVO.success("ok",ordersService.findByUserPhone(phone));
         }else{
-            return "/common/404";
+            throw new AccessDeniedException("");
         }
     }
 
@@ -56,24 +75,25 @@ public class OrdersController {
      * 获取订单详情
      * @param phone
      * @param ordersId
-     * @param model
      * @return
      */
     @GetMapping("/{phone}/{ordersId}")
-    public String orderDetail(@PathVariable("phone") String phone,
-                              @PathVariable("ordersId") Long ordersId,
-                              Map<String,Object> model){
+    @PreAuthorize("hasRole('USER')")
+    @ResponseBody
+    public ReturnMessageVO orderDetail(@PathVariable("phone") String phone,
+                              @PathVariable("ordersId") Long ordersId){
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal();
         Orders orders=ordersService.findOne(ordersId);
         if(userDetails.getUsername().equals(phone)&&orders!=null){
             List<OrdersDetailVO> vos=ordersDetailService.findByOrdersId(ordersId);
+            Map<String,Object> model=new HashMap<>();
             model.put("ordersDetailList",vos);
             model.put("size",vos.size());
             model.put("orders",orders);
-            return "orders/detail";
+            return ReturnMessageVO.success("ok",model);
         }else{
-            return "/common/404";
+            throw new AccessDeniedException("");
         }
     }
 

@@ -42,11 +42,13 @@ public class JwtUser implements UserDetails {
     }
 
     //分配给用户的权限
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
     }
 
+    @JsonIgnore
     public Long getId() {
         return id;
     }
@@ -63,6 +65,7 @@ public class JwtUser implements UserDetails {
         return email;
     }
 
+    @JsonIgnore
     public Date getRegTime() {
         return regTime;
     }

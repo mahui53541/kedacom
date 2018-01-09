@@ -15,9 +15,10 @@
     <script th:inline="javascript">
         //<![CDATA[
         var tale = new $.tale();
+        var user=window.localStorage.getItem("access_user");
         function confirmReceive() {
             tale.post({
-                url: '/orders/'+[[${session.SPRING_SECURITY_CONTEXT.authentication.name}]]+'/'+[[${orders.id}]],
+                url: '/orders/'+user.username+'/'+tale.getQueryVariable("orderId"),
                 success: function (result) {
                     if (result && result.code==1) {
                         tale.alertOk(result.msg||"已经成功收货");
@@ -28,6 +29,39 @@
                 }
             });
         }
+
+        $(function () {
+            if(user==null){
+                window.location.href="/login";
+            }else{
+                user=JSON.parse(user)
+                tale.post({
+                    url: '/orders/'+user.username+'/'+tale.getQueryVariable("orderId"),
+                    type:"GET",
+                    success: function (result) {
+                        if (result && result.code==1) {
+                            $.each(result.data.ordersDetailList,function (index, cart) {
+                                var row='<tr class="row">'+
+                                    '<td style="padding: 10px" class="col-md-2"><img style="width: 150px;" src="'+cart.imageUrl+'" class="img-responsive" alt="Responsive image"/></td>'+
+                                    '<td class="col-md-2">'+cart.name+'</td>'+
+                                    '<td class="col-md-2">'+cart.goodsPrice+'</td>'+
+                                    '<td class="col-md-2">'+cart.orderCount+'</td></tr>'
+                                $("#tbody").append(row);
+                            })
+                            $('#h3').text="订单总额：￥"+result.data.orders.orderAmount;
+                            $('#h3').text="订单总额：￥"+result.data.orders.orderAmount;
+                            if(result.data.orders.receiveDate!=null){
+                                $('#var4').show()
+                                $('#var5').remove()
+                            }else{
+                                $('#var5').show()
+                                $('#var4').remove()
+                            }
+                        }
+                    }
+                });
+            }
+        })
         //]]>
 
     </script>
@@ -53,29 +87,29 @@
                     <a th:href="${'/goods/page/1'}">首页</a>
                 </li>
             </ul>
-            <ul th:if="${session.SPRING_SECURITY_CONTEXT}==null" class="nav navbar-nav navbar-right">
+            <ul id="login" style="display: none;" class="nav navbar-nav navbar-right">
                 <li><a href="/login">登录</a></li>
                 <li><a href="/register">注册</a></li>
             </ul>
-            <ul th:if="${session.SPRING_SECURITY_CONTEXT}!=null" class="nav navbar-nav navbar-right">
+            <ul id="welcome" style="display: none;" class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="#" th:text="'欢迎您：'+${session.SPRING_SECURITY_CONTEXT.authentication.name}"></a>
+                    <a id="var1" href="#"></a>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">我的 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a th:href="${'/cart/'+session.SPRING_SECURITY_CONTEXT.authentication.name}">购物车</a></li>
-                        <li><a th:href="${'/orders/'+session.SPRING_SECURITY_CONTEXT.authentication.name}">订单</a></li>
+                        <li><a id="var2">购物车</a></li>
+                        <li><a id="var3">订单</a></li>
                     </ul>
                 </li>
-                <li><a href="/logout">注销</a></li>
+                <li><a href="#" onclick="logout()">注销</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
 <!--商品展示-->
 <div class="container-fluid">
-    <table class="container-fluid" align="center" th:if="${size}>0">
+    <table class="container-fluid" align="center">
         <thead class="row" border="1">
         <tr class="row">
             <th class="col-md-2">商品</th>
@@ -84,24 +118,18 @@
             <th class="col-md-2">数量</th>
         </tr>
         </thead>
-        <tbody class="row" >
-        <tr class="row" th:each="ordersDetail:${ordersDetailList}">
-            <td style="padding: 10px" class="col-md-2"><img style="width: 150px;" th:src="${ordersDetail.imageUrl}" class="img-responsive" alt="Responsive image"/></td>
-            <td class="col-md-2" th:text="${ordersDetail.name}"></td>
-            <td class="col-md-2" th:text="${ordersDetail.goodsPrice}" style="color: orange"></td>
-            <td class="col-md-2" th:text="${ordersDetail.orderCount}"></td>
-        </tr>
+        <tbody class="row" id="tbody">
         </tbody>
     </table>
     <hr/>
     <div class="row">
         <div class="col-md-3 col-md-offset-5">
-            <h3 th:text="'订单总额：￥'+${orders.orderAmount}" style="color: orange"></h3>
+            <h3 style="color: orange" id="h3"></h3>
         </div>
-        <div class="col-md-2" th:if="${orders.receiveDate}!=null">
+        <div class="col-md-2" style="display: none" id="var4">
             <h3 style="color: orange">订单已完成</h3>
         </div>
-        <div class="col-md-2" th:if="${orders.receiveDate}==null">
+        <div class="col-md-2" style="display: none" id="var5">
             <button class="btn btn-lg btn-success" type="button" onclick="confirmReceive()">确认收货</button>
         </div>
     </div>
