@@ -36,7 +36,3 @@
 
 首先启动web项目（项目主入口），项目启动在8090端口;接着启动服务网关组件gateway,项目启动在8080端口，
 访问`http://localhost:8080/shop`即可演示项目。
-
-## 参考自
-
-[使用JWT和Spring Security保护REST API](https://www.jianshu.com/p/6307c89fe3fa)
