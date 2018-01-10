@@ -24,13 +24,18 @@ server.port=8090
 ```
 zuul.routes.shop.url=http://localhost:8090
 
-ribbon.eureka.enabled=false
+zuul.routes.shop.path=/**
+
+#不过滤Cookie,Authorization，否则服务端接收不到Cookie，造成无法登陆
+zuul.routes.shop.customSensitiveHeaders=true
+zuul.routes.shop.sensitiveHeaders={Cookie,Authorization}
 
 server.port=8080
 ```
-Spring Cloud Zuul会自动设置应用程序名称的路径。在这个示例中，因为我们设置了zuul.routes.shop.url，所以Zuul会将/shop请求发送这个URL
-
-Spring Cloud Netflix Zuul使用Netflix的Ribbon执行客户端负载均衡，默认情况下，Ribbon将使用Netflix Eureka进行服务发现。但目前项目中未使用Eureka组件，所以设置`ribbon.eureka.enabled`为`false`
+- Spring Cloud Netflix Zuul使用Netflix的Ribbon执行客户端负载均衡，默认情况下，
+Ribbon将使用Netflix Eureka进行服务发现。但目前项目中未使用Eureka组件，
+所以设置`ribbon.eureka.enabled`为`false`
+- 由于加入Zuul过滤器会默认过滤请求Header中的Cookie等字段，造成登录无效，所以配置不过滤的字段
 
 ## 添加自定义过滤器
 
