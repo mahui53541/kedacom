@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50720
 File Encoding         : 65001
 
-Date: 2018-01-08 09:13:38
+Date: 2018-01-10 14:38:00
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -107,13 +107,14 @@ CREATE TABLE `orders` (
   `send_date` datetime DEFAULT NULL,
   `user_phone` varchar(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of orders
 -- ----------------------------
-INSERT INTO `orders` VALUES ('19', 'XXXX', '324.00', '2018-01-04 18:09:35', '2', null, '2018-01-04 18:09:35', '18361228129');
+INSERT INTO `orders` VALUES ('19', 'XXXX', '324.00', '2018-01-04 18:09:35', '3', '2018-01-08 10:19:10', '2018-01-04 18:09:35', '18361228129');
 INSERT INTO `orders` VALUES ('20', 'XXXX', '108.00', '2018-01-04 18:16:04', '3', '2018-01-04 19:48:24', '2018-01-04 18:16:04', '18361228129');
+INSERT INTO `orders` VALUES ('21', 'XXXX', '756.00', '2018-01-09 16:52:45', '3', '2018-01-09 18:37:36', '2018-01-09 16:52:45', '18361228129');
 
 -- ----------------------------
 -- Table structure for order_detail
@@ -126,7 +127,7 @@ CREATE TABLE `order_detail` (
   `order_count` int(11) DEFAULT NULL,
   `order_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of order_detail
@@ -134,6 +135,9 @@ CREATE TABLE `order_detail` (
 INSERT INTO `order_detail` VALUES ('37', '5', '108.00', '1', '19');
 INSERT INTO `order_detail` VALUES ('38', '1', '108.00', '2', '19');
 INSERT INTO `order_detail` VALUES ('39', '8', '108.00', '1', '20');
+INSERT INTO `order_detail` VALUES ('40', '1', '108.00', '2', '21');
+INSERT INTO `order_detail` VALUES ('41', '13', '108.00', '4', '21');
+INSERT INTO `order_detail` VALUES ('42', '9', '108.00', '1', '21');
 
 -- ----------------------------
 -- Table structure for producer
@@ -165,7 +169,7 @@ CREATE TABLE `shopping_cart` (
   `order_time` datetime DEFAULT NULL,
   `user_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of shopping_cart
@@ -173,7 +177,9 @@ CREATE TABLE `shopping_cart` (
 INSERT INTO `shopping_cart` VALUES ('1', '5', '108.00', '\0', '1', '108.00', '2018-01-04 15:01:02', '1');
 INSERT INTO `shopping_cart` VALUES ('2', '1', '108.00', '\0', '2', '216.00', '2018-01-04 15:09:18', '1');
 INSERT INTO `shopping_cart` VALUES ('3', '8', '108.00', '\0', '1', '108.00', '2018-01-04 18:15:40', '1');
-INSERT INTO `shopping_cart` VALUES ('4', '1', '108.00', '', '2', '216.00', '2018-01-04 19:49:50', '1');
+INSERT INTO `shopping_cart` VALUES ('4', '1', '108.00', '\0', '2', '216.00', '2018-01-04 19:49:50', '1');
+INSERT INTO `shopping_cart` VALUES ('5', '13', '108.00', '\0', '4', '432.00', '2018-01-09 14:57:22', '1');
+INSERT INTO `shopping_cart` VALUES ('6', '9', '108.00', '\0', '1', '108.00', '2018-01-09 15:14:09', '1');
 
 -- ----------------------------
 -- Table structure for sys_permission
@@ -199,26 +205,12 @@ CREATE TABLE `sys_role` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `role_name` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
-
--- ----------------------------
--- Table structure for sys_role_permission
--- ----------------------------
-DROP TABLE IF EXISTS `sys_role_permission`;
-CREATE TABLE `sys_role_permission` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `permission_id` bigint(20) DEFAULT NULL,
-  `role_id` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of sys_role_permission
--- ----------------------------
+INSERT INTO `sys_role` VALUES ('1', 'ROLE_USER');
 
 -- ----------------------------
 -- Table structure for user
@@ -252,8 +244,9 @@ CREATE TABLE `user_role` (
   `role_id` bigint(20) DEFAULT NULL,
   `user_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_role
 -- ----------------------------
+INSERT INTO `user_role` VALUES ('1', '1', '1');

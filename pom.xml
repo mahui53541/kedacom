@@ -7,7 +7,7 @@
     <groupId>com.github.mahui53541.kedacom</groupId>
     <artifactId>kedacom</artifactId>
     <packaging>pom</packaging>
-    <version>1.1</version>
+    <version>1.2</version>
     <modules>
         <module>web</module>
         <module>order</module>
@@ -16,6 +16,9 @@
         <module>goods</module>
         <module>security</module>
         <module>gateway</module>
+        <module>eureka-server</module>
+        <module>eureka-client</module>
+        <module>eureka-consumer</module>
     </modules>
 
     <parent>
