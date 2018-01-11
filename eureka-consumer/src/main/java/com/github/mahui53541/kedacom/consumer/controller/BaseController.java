@@ -1,11 +1,8 @@
 package com.github.mahui53541.kedacom.consumer.controller;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.github.mahui53541.kedacom.consumer.client.BaseClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -15,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @version:1.0.0
  */
 @RestController
-@RequestMapping("/")
 public class BaseController {
     @Autowired
     private BaseClient baseClient;
@@ -25,16 +21,16 @@ public class BaseController {
      * @return
      */
     @GetMapping("/js/base.js")
-    JsonNode getBaseJs(){
-        return baseClient.getBaseJs();
+    public String baseJs(){
+        return baseClient.baseJs();
     }
     @GetMapping("/js/user/login.js")
-    JsonNode getLoginJs(){
-        return baseClient.getLoginJs();
+    public String loginJs(){
+        return baseClient.loginJs();
     }
     @GetMapping("/js/user/register.js")
-    JsonNode getRegisterJs(){
-        return baseClient.getRegisterJs();
+    public String registerJs(){
+        return baseClient.registerJs();
     }
     /**
      * 首页

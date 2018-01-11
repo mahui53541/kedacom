@@ -3,7 +3,6 @@ package com.github.mahui53541.kedacom.consumer.client;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 
 /**
@@ -20,13 +19,11 @@ public interface BaseClient {
      * @return
      */
     @GetMapping("/js/base.js")
-    JsonNode getBaseJs();
+    String baseJs();
     @GetMapping("/js/user/login.js")
-    JsonNode getLoginJs();
+    String loginJs();
     @GetMapping("/js/user/register.js")
-    JsonNode getRegisterJs();
-    @GetMapping
-    JsonNode test();
+    String registerJs();
     /**
      * 首页
      * @return
