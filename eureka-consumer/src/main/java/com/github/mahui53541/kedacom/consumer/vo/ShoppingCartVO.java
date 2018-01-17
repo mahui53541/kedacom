@@ -11,15 +11,6 @@ import java.util.Date;
  */
 public class ShoppingCartVO {
     private Long id;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     private Long userId;//用户ID
     private Long goodsId;//商品ID
     private Integer orderCount;//订购数量
@@ -27,7 +18,13 @@ public class ShoppingCartVO {
     private BigDecimal goodsPrice;//单价
     private BigDecimal orderPrice;//总价
     private Boolean isEffective;//是否有效
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
     public Long getUserId() {
         return userId;
     }
