@@ -38,7 +38,7 @@ public class ShoppingCartController {
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/add")
     @ResponseBody
-    public ReturnMessageVO addCart(ShoppingCart shoppingCart){
+    public ReturnMessageVO addCart(@RequestBody ShoppingCart shoppingCart){
         shoppingCartService.addCart(shoppingCart);
         return ReturnMessageVO.success("成功加入购物车");
     }
