@@ -73,6 +73,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //允许对静态资源和部分url访问
                 .authorizeRequests()
                     .antMatchers("/css/**", "/js/**", "/images/**", "/resources/**").permitAll()
+                    .antMatchers("/swagger-ui.html","/webjars/**","/swagger-resources/**","/v2/api-docs/**").permitAll()
                     .antMatchers("/").permitAll()//首页
                     .antMatchers("/goods/**").permitAll()//商品浏览
                     .antMatchers(HttpMethod.GET,"/login").permitAll()//登录页面

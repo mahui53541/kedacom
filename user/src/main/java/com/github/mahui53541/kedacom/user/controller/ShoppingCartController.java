@@ -3,6 +3,9 @@ package com.github.mahui53541.kedacom.user.controller;
 import com.github.mahui53541.kedacom.core.vo.ReturnMessageVO;
 import com.github.mahui53541.kedacom.user.domain.ShoppingCart;
 import com.github.mahui53541.kedacom.user.service.ShoppingCartService;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -43,6 +46,11 @@ public class ShoppingCartController {
         return ReturnMessageVO.success("成功加入购物车");
     }
 
+    @ApiOperation(value="获取用户购物车信息", notes="根据phone来获取用户购物车")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "phone", value = "用户手机号", required = true, dataType = "string"),
+            @ApiImplicitParam(name = "Authorization", required = true, dataType = "string", paramType = "header")
+    })
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/{phone}")
     @ResponseBody
